@@ -1,4 +1,4 @@
-version: '3.4'
+version: "3.4"
 services:
   postgres:
     image: postgres
@@ -7,6 +7,15 @@ services:
       - POSTGRES_PASSWORD=auctionsuserpw
       - POSTGRES_DB=auctions
     volumes:
-      - ./volumes/data/db:/var/lib/postgresql/data
+      - /var/lib/postgresql/data
     ports:
-       - 5432:5432
+      - 5432:5432
+  mongodb:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=mongopw
+    ports:
+      - "27018:27017"
+    volumes:
+      - /var/lib/mongodb/data
