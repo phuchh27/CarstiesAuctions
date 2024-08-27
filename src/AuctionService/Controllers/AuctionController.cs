@@ -3,6 +3,8 @@ using AuctionService.DTOs;
 using AuctionService.Entities;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Contracts;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,10 +16,12 @@ public class AuctionController : ControllerBase
 {
     private readonly AuctionDbContext _context;
     private readonly IMapper _mapper;
-    public AuctionController(AuctionDbContext context, IMapper mapper)
+    private readonly IPublishEndpoint _publishEndpoint;
+    public AuctionController(AuctionDbContext context, IMapper mapper, IPublishEndpoint publishEndpoint)
     {
         _context = context;
         _mapper = mapper;
+        _publishEndpoint = publishEndpoint;
     }
 
 
@@ -54,6 +58,11 @@ public class AuctionController : ControllerBase
         auction.Seller = "test";
 
         _context.Auctions.Add(auction);
+
+        var newAuction = _mapper.Map<AuctionDto>(auction);
+
+        await _publishEndpoint.Publish(_mapper.Map<AuctionCreated>(newAuction));
+
         var result = await _context.SaveChangesAsync() > 0;
 
         if (!result) return BadRequest("Could not save changes to the Db");
@@ -76,6 +85,8 @@ public class AuctionController : ControllerBase
         auction.Item.Mileage = updateAuctionDto.Mileage ?? auction.Item.Mileage;
         auction.Item.Year = updateAuctionDto.Year ?? auction.Item.Year;
 
+        await _publishEndpoint.Publish(_mapper.Map<AuctionUpdated>(auction));
+
         var result = await _context.SaveChangesAsync() > 0;
 
         if (result) return Ok();
@@ -91,6 +102,8 @@ public class AuctionController : ControllerBase
         if (auction == null) return NotFound();
 
         _context.Auctions.Remove(auction);
+
+        await _publishEndpoint.Publish<AuctionDeleted>(new { Id = auction.Id.ToString() });
 
         var result = await _context.SaveChangesAsync() > 0;
         if (!result) return BadRequest("Could not update DB");
