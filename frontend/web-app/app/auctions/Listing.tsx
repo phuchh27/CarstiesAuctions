@@ -41,7 +41,7 @@ export default function Listing() {
     <>
       <Filters />
       {data.totalCount === 0 ? (
-        <EmptyFilter />
+        <EmptyFilter showReset />
       ) : (
         <>
           <div className="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
