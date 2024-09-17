@@ -22,3 +22,8 @@ export interface Auction {
   imageUrl: string;
   id: string;
 }
+
+export interface Error {
+  status?: number;
+  message?: string;
+}

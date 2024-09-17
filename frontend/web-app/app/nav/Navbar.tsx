@@ -5,9 +5,10 @@ import Logo from "./Logo";
 import LoginButton from "./LoginButton";
 import { getCurrentUser } from "../actions/authActions";
 import UserActions from "./UserActions";
+import { User } from "next-auth";
 
 export default function Navbar() {
-  const [user, setUser] = useState<object>();
+  const [user, setUser] = useState<User>();
 
   useEffect(() => {
     async function fetchUser() {

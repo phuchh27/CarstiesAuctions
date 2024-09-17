@@ -10,7 +10,7 @@ export default function CarImage({ imageUrl }: Props) {
   return (
     <Image
       src={imageUrl}
-      alt={`Image of car`}
+      alt="image"
       fill
       priority
       className={`
@@ -21,7 +21,7 @@ export default function CarImage({ imageUrl }: Props) {
             : "grayscale-0 blur-0 scale-100"
         }
         `}
-      sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 25vw"
+      sizes="(max-width:768px) 100vw, (max-width: 1200px) 50vw, 25vw"
       onLoad={() => setIsLoading(false)}
     />
   );
