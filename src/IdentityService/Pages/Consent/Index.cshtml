@@ -7,7 +7,7 @@
     <div class="lead">
         @if (Model.View.ClientLogoUrl != null)
         {
-            <div class="client-logo"><img src="@Model.View.ClientLogoUrl"></div>
+            <div class="client-logo"><img alt="" src="@Model.View.ClientLogoUrl"></div>
         }
         <h1>
             @Model.View.ClientName
@@ -69,7 +69,8 @@
                             Description
                         </div>
                         <div class="card-body">
-                            <input class="form-control" placeholder="Description or name of device" asp-for="Input.Description" autofocus>
+                            <input class="form-control" placeholder="Description or name of device"
+                                asp-for="Input.Description" autofocus>
                         </div>
                     </div>
                 </div>
