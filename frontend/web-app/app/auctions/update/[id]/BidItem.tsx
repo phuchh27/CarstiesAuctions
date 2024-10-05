@@ -6,7 +6,6 @@ type Props = {
   bid: Bid;
 };
 export default function BidItem({ bid }: Props) {
-  console.log(bid);
   function getBidInfo() {
     let bgColor = "";
     let text = "";

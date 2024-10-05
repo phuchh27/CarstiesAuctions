@@ -1,5 +1,5 @@
 "use server";
-import { fetchWrapper } from "@/lib/fetchWrapper";
+import { fetchWrapper } from "@/app/lib/fetchWrapper";
 import { Auction, Bid, PageResult } from "../types";
 import { FieldValues } from "react-hook-form";
 import { revalidatePath } from "next/cache";

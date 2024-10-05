@@ -13,7 +13,8 @@ const nextConfig = {
         hostname: "i.pinimg.com"
       }
     ]
-  }
+  },
+  output: "standalone"
 };
 
 export default nextConfig;

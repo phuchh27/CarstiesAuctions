@@ -48,7 +48,6 @@ export default function AuctionForm({ auction }: Props) {
           id = auction.id;
         }
       }
-      console.log(res);
       if (res.error) {
         throw res.error;
       }

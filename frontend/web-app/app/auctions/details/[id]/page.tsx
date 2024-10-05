@@ -13,7 +13,6 @@ export default async function Details({ params }: { params: { id: string } }) {
   const data = await getDetailViewData(params.id);
   const user = await getCurrentUser();
 
-  console.log(params.id);
   return (
     <div className="mb-3">
       <div className="flex justify-between">
